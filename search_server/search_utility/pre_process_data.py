@@ -1,5 +1,4 @@
 from unidecode import unidecode
-from database import books_keyword_map, data
 
 
 class DataPreProcessor:
@@ -42,8 +41,3 @@ class DataPreProcessor:
         self.parse_data()
         self.process_data()
         return self.books_keyword_map
-
-
-
-pre_process = DataPreProcessor(data)
-books_keyword_map.update(pre_process.start())
