@@ -1,0 +1,2 @@
+class NoDataProvided(Exception):
+    pass

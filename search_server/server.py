@@ -1,6 +1,8 @@
 import json
 from search_utility.database import data, books_keyword_map
 from flask import Flask, request, jsonify
+from books_controller import search_books
+from custom_exceptions import NoDataProvided
 from search_utility.pre_process_data import DataPreProcessor
 from flask_cors import CORS
 
@@ -11,7 +13,26 @@ CORS(app, resources={r"/get_books": {"origins": "*"}})
 
 @app.route("/get_books", methods=["POST"])
 def get_books():
-    pass
+    if not request.data:
+        raise NoDataProvided
+
+    books = search_books(json.loads(request.data))
+    return jsonify({"data": books}), 200
+
+
+@app.errorhandler(404)
+def not_found(message):
+    return jsonify({"success": False, "message": str(message)}), 404
+
+
+@app.errorhandler(NoDataProvided)
+def no_data_provided(message):
+    return jsonify({"success": False, "message": "Please provide the data"}), 501
+
+
+@app.errorhandler(Exception)
+def internal_error(message):
+    return jsonify({"success": False, "message": str(message)}), 501
 
 
 # Pre Process and store the data before starting the server

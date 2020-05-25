@@ -1,6 +1,9 @@
 # this dictionary contains the processed data
 books_keyword_map = {}
 
+# caching for author name for requested books
+book_author_map = {}
+
 # raw data available on the given link
 data = {
   "titles": [
