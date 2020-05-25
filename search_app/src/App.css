@@ -36,3 +36,31 @@
     transform: rotate(360deg);
   }
 }
+
+.search-container-height {
+  height: 30%;
+}
+
+.padding-t-b{
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.box-shadow-lg {
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.05);
+}
+.m-t-md {
+  margin-top: 20px;
+}
+.m-b-md {
+  margin-bottom: 20px;
+}
+.p-sm {
+    padding: 15px;
+}
+.r-2x {
+  border-radius: 6px;
+}
+.b-a {
+  border: 1px solid #dee5e7;
+}
