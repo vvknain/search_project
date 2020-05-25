@@ -41,10 +41,11 @@ def fetch_authors(books):
         else:
             url = "https://ie4djxzt8j.execute-api.eu-west-1.amazonaws.com/coding"
             params = {"book_id": book_id}
+            headers = {"Content-Type": "application/json"}
 
             # API is not functioning properly, sometimes gives an error and sometimes works.
             # I have handled the scenario if it gives the error
-            resp = requests.post(url=url, data=params)
+            resp = requests.post(url=url, json=params, headers=headers)
             if resp.status_code == 200:
                 request_data = json.loads(resp.text)
                 book["author"] = request_data.get("author", "")
