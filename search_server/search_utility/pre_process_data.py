@@ -11,10 +11,13 @@ class DataPreProcessor:
         modifying the data in place after escaping and decoding
         :return:
         """
-        summaries = self.data.get("summaries", [])
+        titles = self.data.get("titles", [])
 
-        for summary in summaries:
+        for idx in range(len(titles)):
+            summary = self.data.get("summaries", [])[idx]
+            title = self.data.get("titles", [])[idx]
             summary["summary"] = unidecode(summary.get("summary").decode('unicode-escape'))
+            self.data.get("titles", [])[idx] = unidecode(title.decode('unicode-escape'))
 
     def process_data(self):
         summaries = self.data.get("summaries", [])
@@ -23,11 +26,11 @@ class DataPreProcessor:
         # creating a dictionary of words of summaries as key and value as list of books containing this word/key
         for summary in summaries:
             book_id = summary.get("id")
-            book_title = unidecode(titles[book_id].decode('unicode-escape'))
+            book_title = titles[book_id]
 
             # combining book_title with the summary so that book name can also be included in search
             book_summary = "{} {}".format(book_title, summary.get("summary"))
-            keys = book_summary.replace("The Book in Three Sentences: ", "").replace(".", "").split()
+            keys = book_summary.replace("The Book in Three Sentences: ", "").replace(".", "").lower().split()
 
             for key in keys:
                 self.books_keyword_map.setdefault(key, {})

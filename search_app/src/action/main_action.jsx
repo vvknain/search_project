@@ -26,10 +26,15 @@ export function getSearchBooks(data) {
         .then((res) => {
             if(res.status === 200) {
                 return res.json()
+            } else {
+                throw new Error("Something went wrong")
             }
         })
         .then((json) => {
             dispatch(receiveBooks(json["data"][0]))
+        })
+        .catch((error) => {
+            alert(error)
         })
     }
 }

@@ -61,10 +61,13 @@ class SearchBox extends React.Component{
 
     renderSuggestion(suggestion) {
         return (
-            <div>
-                <span>{suggestion.title}</span><br/>
-            </div>
+            <span>{suggestion.title}</span>
         );
+    }
+
+    onSubmit(){
+        this.setState({value: ""})
+        this.props.addBook(this.state.selected_suggestion)
     }
 
     render() {
@@ -72,36 +75,34 @@ class SearchBox extends React.Component{
         const inputProps = {
             placeholder: 'Search for the book',
             value: this.state.value,
-            onChange: this.onChange,
-            className: "form-control"
+            onChange: this.onChange
           };
 
         return (
             <div className="container-fluid search-container-height padding-t-b">
-                <div className="text-center">
-                    <h2>Search Books</h2>
+                <div className="text-center padding-t-b">
+                    <h2 style={{fontWeight: 400}}>Search Books</h2>
                 </div>
                 <div className="row">
-                    <div className="col-md-4"></div>
-                    <div className="col-md-4 col-md-offset-3">
-                        <form action="form-group">
-                            <div className="">
-                                <Autosuggest
-                                    suggestions={this.props.suggestions}
-                                    onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-                                    onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-                                    getSuggestionValue={this.getSuggestionValue}
-                                    renderSuggestion={this.renderSuggestion}
-                                    inputProps={inputProps}
-                                    onSuggestionSelected={(event,data) => this.onSuggestionSelected(event, data)}
-                                />
-                                <button type="button" className="btn btn-primary m-t-md" disabled={this.is_disabled()}
-                                    onClick={() => this.props.addBook(this.state.selected_suggestion)}>submit
-                                </button>
-                            </div>
-                        </form>
+                    <div className="col-md-3"></div>
+                    <div className="col-md-5">
+                        <div className="">
+                            <Autosuggest
+                                suggestions={this.props.suggestions}
+                                onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+                                onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+                                getSuggestionValue={this.getSuggestionValue}
+                                renderSuggestion={this.renderSuggestion}
+                                inputProps={inputProps}
+                                onSuggestionSelected={(event,data) => this.onSuggestionSelected(event, data)}
+                            />
+                        </div>
                     </div>
-                    <div className="col-md-4"></div>
+                    <div className="col-md-1">
+                        <button type="button" className="btn btn-lg btn-primary" disabled={this.is_disabled()}
+                            onClick={() => this.onSubmit()}>submit
+                        </button>
+                    </div>
                 </div>
             </div>
         )

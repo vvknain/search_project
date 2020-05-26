@@ -32,7 +32,7 @@ def no_data_provided(message):
 
 @app.errorhandler(Exception)
 def internal_error(message):
-    return jsonify({"success": False, "message": str(message)}), 501
+    return jsonify({"success": False, "message": str(message)}), 502
 
 
 # Pre Process and store the data before starting the server

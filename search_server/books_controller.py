@@ -17,7 +17,7 @@ def search_books(request_data):
     books = []
 
     for search_string in search_strings:
-        fetch_data = FetchData(search_string, books_keyword_map, data, k)
+        fetch_data = FetchData(search_string.lower(), books_keyword_map, data, k)
         single_query_books = fetch_data.fetch_book_data()
 
         # fetch authors

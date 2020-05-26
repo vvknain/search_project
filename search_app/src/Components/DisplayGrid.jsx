@@ -1,43 +1,53 @@
 import React from 'react'
-import {suggestionsData} from "./SuggestionsData";
+import {connect} from 'react-redux'
 
 
-export default class DisplayGrid extends React.Component{
+class DisplayGrid extends React.Component{
     constructor(props) {
         super(props)
         this.state = {
-            
         }
     }
 
     render() {
+        var x = this.props.books.length
         return (
-            <div className="container-fluid search-container-height ">
+            <div className="container-fluid search-container-height padding-t-b">
                 <div className="row">
-                    {suggestionsData.map((book,j)=>{
+                    {this.props.books.map((book,j) => {
                        return (
-                            <div className="col-md-4">
-                                <div className="panel panel-default r-2x b-a box-shadow-lg p-sm">
-                                    <div className="hbox p-b-xs">
-                                        <div className="col w-xs text-bold">
+                            <div key={j} className={`col-md-${j < Math.floor(x / 3) * 3 ? "4" : (x % 3 === 1? "12": "6")} col-sm-6`}>
+                                <div className="panel b-a box-shadow-lg r-2x m-b-xl">
+                                    <div className="p-sm b-b text-ellipsis">
+                                        <span>
                                             <b>{book.title}</b>
-                                        </div>
-                                        <div className = "m-t-md">
-                                            {book.summary}    
-                                        </div>
-                                        <div>
-                                            <hr></hr>
-                                        </div>
-                                        <div className = "">
-                                            {book.author}
-                                        </div>
+                                        </span>
+                                    </div>
+                                    <div className="p-sm b-b grid-height">
+                                        <div className="dis-in">{book.summary}</div>
+                                    </div>
+                                    <div className="p-sm">
+                                        <span>{book.author}</span>
                                     </div>
                                 </div>
                             </div>
                        )
                     })}
                 </div>
+                {!this.props.books.length && 
+                    <div className="text-center">
+                        <h5>No Book is Selected</h5>
+                    </div>
+                }
             </div>
         )
     }
 }
+
+function MapStateToProps(state){
+	return {
+        books : state.books
+	}
+}
+
+export default connect(MapStateToProps)(DisplayGrid)
