@@ -1,5 +1,5 @@
 Flask==1.1.2
 pytest==4.6.10
 requests==2.23.0
-Flask-Cors==3.0.8
+Flask-Cors==3.0.9
 Unidecode==1.1.1
